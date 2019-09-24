@@ -1,6 +1,6 @@
 FROM reg.docker.alibaba-inc.com/cos/golang:1.12.9-arm64 AS build-env
-ADD . /go/src/k8s.io/kube-state-metrics 
-WORKDIR /go/src/k8s.io/kube-state-metrics 
+ADD . /go/src/k8s.io/kube-state-metrics/ 
+WORKDIR /go/src/k8s.io/kube-state-metrics
 RUN go build 
 
 
