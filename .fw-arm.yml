@@ -11,7 +11,7 @@ name: kube-state-metrics-arm
 variables:
   DOCKERFILE_PATH: Dockerfile.arm
   DOCKER_IMAGE_NAMESPACE: prometheus
-  DOCKER_IMAGE_REPO: kube-state-metrics-arm
+  DOCKER_IMAGE_REPO: kube-state-metrics
   ARCH: 'arm64'
 
 privatecloud:
@@ -30,11 +30,11 @@ machine:
 # 在scripts中可直接使用系统环境变量
 # {{FW_REPO_VERSION}} 表示git commit信息
 scripts:
-  - sudo docker build --pull -t reg.docker.alibaba-inc.com/{{DOCKER_IMAGE_NAMESPACE}}/{{DOCKER_IMAGE_REPO}}-{{ARCH}}:{{VERSION}}-{{FW_REPO_VERSION}} -f {{DOCKERFILE_PATH}}/Dockerfile.arm .
+  - sudo docker build --pull -t reg.docker.alibaba-inc.com/{{DOCKER_IMAGE_NAMESPACE}}/{{DOCKER_IMAGE_REPO}}-{{ARCH}}:{{VERSION}}-{{FW_REPO_VERSION}} -f {{DOCKERFILE_PATH}} .
 
 artifacts:
   images:
-    - reg.docker.alibaba-inc.com/{{DOCKER_IMAGE_NAMESPACE}}/{{DOCKER_IMAGE_REPO}}-{{ARCH}}:{{VERSION}}-{{FW_REPO_VERSION}} | {{DOCKERFILE_PATH}}/Dockerfile.arm
+    - reg.docker.alibaba-inc.com/{{DOCKER_IMAGE_NAMESPACE}}/{{DOCKER_IMAGE_REPO}}-{{ARCH}}:{{VERSION}}-{{FW_REPO_VERSION}} | {{DOCKERFILE_PATH}}
 
 # notifications定义通知人员列表，目前只支持邮件通知
 notifications:
