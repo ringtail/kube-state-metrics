@@ -13,6 +13,7 @@ variables:
   DOCKER_IMAGE_NAMESPACE: prometheus
   DOCKER_IMAGE_REPO: kube-state-metrics
   ARCH: 'arm64'
+  VERSION: 1.6.0
 
 privatecloud:
   version: v3
