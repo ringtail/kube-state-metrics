@@ -1,0 +1,11 @@
+FROM reg.docker.alibaba-inc.com/cos/golang:1.12.9-arm64 AS build-env
+ADD . /go/src/k8s.io/kube-state-metrics 
+WORKDIR /go/src/k8s.io/kube-state-metrics 
+RUN go build 
+
+
+FROM registry.cn-beijing.aliyuncs.com/arm64v8/alpine:3.10
+COPY --from=build-env /go/src/k8s.io/kube-state-metrics/kube-state-metrics /
+ENTRYPOINT ["/kube-state-metrics", "--port=8080", "--telemetry-port=8081"]
+
+EXPOSE 8080 8081
