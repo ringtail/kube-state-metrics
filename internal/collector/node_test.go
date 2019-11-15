@@ -61,6 +61,7 @@ func TestNodeCollector(t *testing.T) {
 		# HELP kube_node_status_condition The condition of a cluster node.
 		# TYPE kube_node_status_condition gauge
 	`
+
 	cases := []generateMetricsTestCase{
 		// Verify populating base metric and that metric for unset fields are skipped.
 		{
