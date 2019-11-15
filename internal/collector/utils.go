@@ -47,14 +47,31 @@ func boolFloat64(b bool) float64 {
 // description must be the condition.
 func addConditionMetrics(cs v1.ConditionStatus) []*metric.Metric {
 	ms := make([]*metric.Metric, len(conditionStatuses))
+		for i, status := range conditionStatuses {
+			ms[i] = &metric.Metric{
+				LabelValues: []string{strings.ToLower(string(status))},
+				Value:       boolFloat64(cs == status),
+			}
+		}
 
+	return ms
+}
+// Mainly for the state of the node after scaling, not calculating the value of its unknow.
+func addConditionMetrics2Special(cs v1.ConditionStatus) []*metric.Metric {
+	ms := make([]*metric.Metric, len(conditionStatuses))
 	for i, status := range conditionStatuses {
-		ms[i] = &metric.Metric{
-			LabelValues: []string{strings.ToLower(string(status))},
-			Value:       boolFloat64(cs == status),
+		if i==3{
+			ms[i] = &metric.Metric{
+				LabelValues: []string{strings.ToLower(string(status))},
+				Value:       0,
+			}
+		}else {
+			ms[i] = &metric.Metric{
+				LabelValues: []string{strings.ToLower(string(status))},
+				Value:       boolFloat64(cs == status),
+			}
 		}
 	}
-
 	return ms
 }
 

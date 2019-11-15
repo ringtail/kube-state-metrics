@@ -147,10 +147,14 @@ var (
 			Help: "The condition of a cluster node.",
 			GenerateFunc: wrapNodeFunc(func(n *v1.Node) *metric.Family {
 				ms := make([]*metric.Metric, len(n.Status.Conditions)*len(conditionStatuses))
-
+				conditionMetrics := make([]*metric.Metric,len(n.Status.Conditions))
 				// Collect node conditions and while default to false.
 				for i, c := range n.Status.Conditions {
-					conditionMetrics := addConditionMetrics(c.Status)
+					if n.Labels["policy"]=="recycle"{
+						conditionMetrics = addConditionMetrics2Special(c.Status)
+					}else {
+						conditionMetrics = addConditionMetrics(c.Status)
+					}
 
 					for j, m := range conditionMetrics {
 						metric := m
