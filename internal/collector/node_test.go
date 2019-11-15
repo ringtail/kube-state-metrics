@@ -61,8 +61,6 @@ func TestNodeCollector(t *testing.T) {
 		# HELP kube_node_status_condition The condition of a cluster node.
 		# TYPE kube_node_status_condition gauge
 	`
-	 label:= map[string]string{}
-	 label["policy"]="recycle"
 
 	cases := []generateMetricsTestCase{
 		// Verify populating base metric and that metric for unset fields are skipped.
@@ -209,7 +207,6 @@ func TestNodeCollector(t *testing.T) {
 			Obj: &v1.Node{
 				ObjectMeta: metav1.ObjectMeta{
 					Name: "127.0.0.1",
-					Labels: label,
 				},
 				Status: v1.NodeStatus{
 					Conditions: []v1.NodeCondition{
